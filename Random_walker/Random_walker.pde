@@ -2,19 +2,27 @@ Walker w;
 
 void setup() {
   size(800, 600);
-  w = new Walker(width/2, height/2, 30, 30);
-  //w.setup();
 }
 
 void draw() {
-  w.update();
-  w.move();
+  //no trace moving
+  //background(255);
+  //after w is crated, call update/move function
+  if (w != null) {
+    w.update();
+    w.move();
+  }
+}
+
+//click to dicide origin_x & origin_y
+void mousePressed() {
+  w = new Walker(mouseX, mouseY, 30, 30);
 }
 
 class Walker {
   float x_pos, y_pos, w, h;
   float tx, ty;
-
+  
   Walker(int origin_x, int origin_y, int _w, int _h) {
     tx = 0;
     ty = 10000;
@@ -25,8 +33,8 @@ class Walker {
   }
 
   void update() {
-    x_pos = map(noise(tx), 0, 1, 0, width);
-    y_pos = map(noise(ty), 0, 1, 0, height);
+    x_pos += map(noise(tx), 0, 1, -2, 2);
+    y_pos += map(noise(ty), 0, 1, -2, 2);
     tx += 0.01;
     ty += 0.01;
   }
